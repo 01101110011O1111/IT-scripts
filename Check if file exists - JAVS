@@ -1,0 +1,15 @@
+#following the news about the JAVS supply chain attack, I found this script and modified it to work/target JAVS. Notable issues are that it only checks for the file (if it still exists) on the c drive.
+#works for my purposes.
+
+$fileName = "JAVS.Viewer8.Setup_8.3.7.250-1.exe"
+ 
+$foundFiles = Get-ChildItem -Path "C:\" -Recurse -ErrorAction SilentlyContinue | Where-Object { $_.Name -eq $fileName }
+ 
+if ($foundFiles) {
+  foreach ($file in $foundFiles) {
+    Write-Output "File found at $($file.FullName)"
+    Write-Error -message "file present"
+     }
+    } else
+      { Write-Output "File named $fileName not found on C: drive"
+       }
